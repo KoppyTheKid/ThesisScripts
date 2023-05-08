@@ -7,9 +7,9 @@
 
 
 #MANUAL ARGUMENTS: these will be used if there are unused arguments when the script is called in the terminal
-manual1='/omics/groups/OE0436/data/koppany/TCGA_processed/tpm_with_gene_names/*.tsv'
-manual2='/omics/groups/OE0436/data/koppany/TISCH/reference_matrices/*.txt'
-manual3='/home/g818y/koppany_link/deconv_results/TCGA_mix_TISCH_ref'
+manual1='<path/to/mix/file>'
+manual2='<path/to/reference/file>'
+manual3='<path/to/destination/folder>'
 
 # START OF SCRIPT
 #assign argument1
@@ -93,8 +93,8 @@ for currentMix in "${mixArray[@]}"
         #submit job
         bsub -J $jobname \
         -W 0:20 \
-        -o "/home/g818y/koppany_link/lsf_log/${jobname}_out.log" \
-        -e "/home/g818y/koppany_link/lsf_log/${jobname}_error.log" \
+        -o "${HOME}/lsf_log/${jobname}_out.log" \
+        -e "${HOME}/lsf_log/${jobname}_error.log" \
         -n 1 -R "rusage[mem=16G]" \
         python GEDIT2.py -mix $currentMix -ref $currentRef -outFile $outname 
         
